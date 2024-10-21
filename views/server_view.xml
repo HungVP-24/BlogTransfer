@@ -1,0 +1,82 @@
+<odoo>
+    <data>
+        <record id="form_server_view" model="ir.ui.view">
+            <field name="name">server_form</field>
+            <field name="model">server</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div style="display:flex;justify-content:space-between">
+                            <div style="width: 85%;margin-bottom:10px">
+                                <group>
+                                    <field name="name"/>
+                                    <field name="name_database" invisible="1"/>
+                                    <field name="db_domain"/>
+                                    <field name="user"/>
+                                    <field name="password"/>
+                                    <field name="is_connected" invisible="1"/>
+                                    <field name="server_tag" invisible="1"/>                                   
+                                </group>
+                                <button name="action_test_login" type="object" string="Test Login" class="btn-primary"/>
+                            </div>
+                            <div style="display:flex;flex-direction:column; width: 15%">
+                                <field style="width: 50%" name="image" widget="image"></field>
+                                <div>
+                                    <h6>Database</h6>
+                                    <button name="action_load_databases" type="object" string="Select" class="btn-primary"/>
+                                    <field nolabel="1" name="database_list" domain="[('domain', '=', db_domain)]"/>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div invisible="not is_connected">
+                            <hr style="border: 1px solid #000;"/> <!-- Đường gạch ngăn cách -->
+                                <!-- Phần hiển thị tag từ server -->
+                            <h6>Tag từ Server</h6>
+                            <field name="server_tag" widget="many2many_tags" readonly="1"/>
+                            <hr/>
+                            <group>
+ 
+                                <!-- Bảng hiển thị danh sách tag đã load -->
+                                <field name="mapping_tag" >
+                                    <tree editable="bottom" create="False">
+                                        <field name="local_tag"/> 
+                                        <field name="server_tag" widget="many2many_tags"/>  <!-- Cập nhật widget -->
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <field name="local_tag" />
+                                            <field name="server_tag" readonly="1"/>
+                                            <field name="server_id" invisible="1" readonly="1"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </group>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="tree_server_view" model="ir.ui.view">
+            <field name="name">server_tree</field>
+            <field name="model">server</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="db_domain"/>
+                    <field name="user"/>
+                    <field name="password"/>
+                    <field name="mapping_tag"/>
+                    <field name="server_tag"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_server" model="ir.actions.act_window">
+            <field name="name">Server</field>
+            <field name="res_model">server</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>
