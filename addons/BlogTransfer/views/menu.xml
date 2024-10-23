@@ -1,0 +1,11 @@
+<odoo>
+    <data>
+        <!-- Mục này đã tồn tại cho server -->
+        <menuitem id="Blog_Transfer" name="Blog Transfer"  />
+        <menuitem id="server_menu" name="Server" parent="Blog_Transfer" action="action_server"/> 
+        <!-- Thêm blog chung menu với server -->
+        <menuitem id="blog_menu" name="Blog" parent="Blog_Transfer" action="action_blog"/>
+    </data>
+</odoo>
+
+

@@ -1,0 +1,50 @@
+<odoo>
+    <data>
+        <!-- Blog Form View -->
+        <record id="form_blog_view" model="ir.ui.view">
+            <field name="name">blog_form</field>
+            <field name="model">blog</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Blog Information">
+                            <field name="blog_post_id" required="1" string="Blog Post"/>
+                            <field name="server_id" widget="many2many_tags" options="{'no_create': True}" string="Server"/>
+                        </group>
+
+                        <group string="Tag Mapping">
+                            <field name="server_tag" widget="many2many_tags" string="Server Tag"/>
+                            <field name="local_tag" widget="many2one_tags" readonly="1" string="Local Tag"/> 
+                            <field name="local_tag_names" readonly="1" string="Local Tag Names"/> <!-- Hiển thị tên local tag -->
+                            <field name="server_tag_names" readonly="1" string="Server Tag Names"/> <!-- Hiển thị tên server tag -->
+                            <field name="server_names" readonly="1" string="Server Names"/> Hiển thị tên server
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Blog Tree View -->
+        <record id="tree_blog_view" model="ir.ui.view">
+            <field name="name">blog_tree</field>
+            <field name="model">blog</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="blog_post_id"/>
+                    <field name="server_id"/>
+                    <field name="local_tag_names"/> <!-- Thêm tên local tag vào tree view -->
+                    <field name="server_tag_names"/> <!-- Thêm tên server tag vào tree view -->
+                    <field name="server_names"/> <!-- Thêm tên server vào tree view -->
+                </tree>
+            </field>
+        </record>
+
+        <!-- Blog Action -->
+        <record id="action_blog" model="ir.actions.act_window">
+            <field name="name">Blog</field>
+            <field name="res_model">blog</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>
